@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Antoine Torossian</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/leaflet/leaflet.css" />
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+   crossorigin=""/>
+   
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+   integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+   crossorigin=""></script>
+  
+<script src="leaflet/leaflet.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="https://npmcdn.com/parse@1.11.0/dist/parse.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+  
+  //jQuery to collapse the navbar on scroll
+$(window).scroll(function() {
+    if ($(".navbar").offset().top > 50) {
+        $(".navbar-fixed-top").addClass("top-nav-collapse");
+    } else {
+        $(".navbar-fixed-top").removeClass("top-nav-collapse");
+    }
+});
+
+//jQuery for page scrolling feature - requires jQuery Easing plugin
+$(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+
+
+jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(e,f,a,h,g){return jQuery.easing[jQuery.easing.def](e,f,a,h,g)},easeInQuad:function(e,f,a,h,g){return h*(f/=g)*f+a},easeOutQuad:function(e,f,a,h,g){return -h*(f/=g)*(f-2)+a},easeInOutQuad:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f+a}return -h/2*((--f)*(f-2)-1)+a},easeInCubic:function(e,f,a,h,g){return h*(f/=g)*f*f+a},easeOutCubic:function(e,f,a,h,g){return h*((f=f/g-1)*f*f+1)+a},easeInOutCubic:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f+a}return h/2*((f-=2)*f*f+2)+a},easeInQuart:function(e,f,a,h,g){return h*(f/=g)*f*f*f+a},easeOutQuart:function(e,f,a,h,g){return -h*((f=f/g-1)*f*f*f-1)+a},easeInOutQuart:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f+a}return -h/2*((f-=2)*f*f*f-2)+a},easeInQuint:function(e,f,a,h,g){return h*(f/=g)*f*f*f*f+a},easeOutQuint:function(e,f,a,h,g){return h*((f=f/g-1)*f*f*f*f+1)+a},easeInOutQuint:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f*f+a}return h/2*((f-=2)*f*f*f*f+2)+a},easeInSine:function(e,f,a,h,g){return -h*Math.cos(f/g*(Math.PI/2))+h+a},easeOutSine:function(e,f,a,h,g){return h*Math.sin(f/g*(Math.PI/2))+a},easeInOutSine:function(e,f,a,h,g){return -h/2*(Math.cos(Math.PI*f/g)-1)+a},easeInExpo:function(e,f,a,h,g){return(f==0)?a:h*Math.pow(2,10*(f/g-1))+a},easeOutExpo:function(e,f,a,h,g){return(f==g)?a+h:h*(-Math.pow(2,-10*f/g)+1)+a},easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a},easeInCirc:function(e,f,a,h,g){return -h*(Math.sqrt(1-(f/=g)*f)-1)+a},easeOutCirc:function(e,f,a,h,g){return h*Math.sqrt(1-(f=f/g-1)*f)+a},easeInOutCirc:function(e,f,a,h,g){if((f/=g/2)<1){return -h/2*(Math.sqrt(1-f*f)-1)+a}return h/2*(Math.sqrt(1-(f-=2)*f)+1)+a},easeInElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return -(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e},easeOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return g*Math.pow(2,-10*h)*Math.sin((h*k-i)*(2*Math.PI)/j)+l+e},easeInOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k/2)==2){return e+l}if(!j){j=k*(0.3*1.5)}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}if(h<1){return -0.5*(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e}return g*Math.pow(2,-10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j)*0.5+l+e},easeInBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*(f/=h)*f*((g+1)*f-g)+a},easeOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*((f=f/h-1)*f*((g+1)*f+g)+1)+a},easeInOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}if((f/=h/2)<1){return i/2*(f*f*(((g*=(1.525))+1)*f-g))+a}return i/2*((f-=2)*f*(((g*=(1.525))+1)*f+g)+2)+a},easeInBounce:function(e,f,a,h,g){return h-jQuery.easing.easeOutBounce(e,g-f,0,h,g)+a},easeOutBounce:function(e,f,a,h,g){if((f/=g)<(1/2.75)){return h*(7.5625*f*f)+a}else{if(f<(2/2.75)){return h*(7.5625*(f-=(1.5/2.75))*f+0.75)+a}else{if(f<(2.5/2.75)){return h*(7.5625*(f-=(2.25/2.75))*f+0.9375)+a}else{return h*(7.5625*(f-=(2.625/2.75))*f+0.984375)+a}}}},easeInOutBounce:function(e,f,a,h,g){if(f<g/2){return jQuery.easing.easeInBounce(e,f*2,0,h,g)*0.5+a}return jQuery.easing.easeOutBounce(e,f*2-g,0,h,g)*0.5+h*0.5+a}});
+  
+  </script>
+
+  <style>
+  
+  .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+  
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+	/*.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+	}*/
+	
+	.navbar-default{
+  background:transparent;
+  background-image:none;
+  border-color:transparent;
+  box-shadow:none;
+}
+	
+	.ssa {
+	background-image: url("background_top.png");
+	background-size: cover;
+	min-height: 300px;
+	}
+		.jumbotron {
+	background-image: url("background_top.png");
+	background-size: cover;
+  height:400px;
+	}
+	
+	#mapid { height: 470px; }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+  </style>
+</head>
+<body id="home">
+<script>
+
+Parse.initialize("Hlvrrj3KHDH1LtrF5aMEz2zzr0AKYNVjk28FcdiQ","nIb3SBvWelXB6wFbNTy8Dxt46tlW1wIX7LxzuBd2");
+Parse.serverURL = 'https://parseapi.back4app.com/'
+
+var layout = localStorage.getItem("search");
+
+
+if(layout == "pizza"){
+
+var info = ["<a class='list-group-item list-group-item-action flex-column align-items-start' id='john'><div class='d-flex w-100 justify-content-between'><h5 class='mb-1'>Johnny Boy</h5><small>10 metres</small></div><p class='mb-1'>Johnny boy is soooooo good at eating pizza</p></a>","<a href='#' class='list-group-item list-group-item-action flex-column align-items-start'><div class='d-flex w-100 justify-content-between'><h5 class='mb-1'>Timothy goes to School</h5><small>25 metres</small></div><p class='mb-1'>I love eating pizza off the ground</p></a>"]
+
+}else if(layout == "dino"){
+var info = "hello";
+}else{
+var info = "daddy";
+}
+
+var output = [];
+
+for(var i = 0; i < info.length; i++){
+
+	output.push(info[i]);
+
+}
+
+function storeUp(){
+var search = document.getElementById("search").value;
+
+	localStorage.setItem("search",search);
+
+	window.location.href = "lookapp.html";
+	return false;
+
+}
+
+</script>
+
+
+
+
+
+
+<div class="" style="">
+
+<nav class="navbar navbar-inverse  navbar-default" style="background-color:#331a00;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href='pairup.html'><img src="pairup_logo.png" width="120" height="73" alt="Mountain View"></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse col-sm-12 pull-right" id="myNavbar" style='vertical-align:middle;'>
+
+        <button type="button" class="btn btn-warning btn-md" style="margin:20px;">Logout</button>
+
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center" style="background-color:#E0E0E0;height:150px;"><br>
+<h2>Search for another interest:</h2>
+  <div class="col-sm-12 BOX text-center" id = "searchDiv">
+      <input type="text" placeholder="Search.." name="search" id="search" >
+      <button type="submit" onclick="storeUp()" id="destroy"><i class="fa fa-search"></i></button>
+  </div>
+  
+  <label class="switch pull-right">
+  <input type="checkbox" checked>
+  <span class="slider round"></span>
+</label>
+  
+</div>
+</div>
+
+
+<script type="text/javascript">/*
+ console.log("Inside Script");
+ // After installing the Parse SDK above, intialize it with your Parse application ID and key below
+ Parse.initialize("Hlvrrj3KHDH1LtrF5aMEz2zzr0AKYNVjk28FcdiQ","nIb3SBvWelXB6wFbNTy8Dxt46tlW1wIX7LxzuBd2");
+ Parse.serverURL = 'https://parseapi.back4app.com/'
+ 
+ var user = new Parse.User();
+user.save({
+  username: 'Torossian',
+  name: "Antoine Torossian",
+  email: 'sames@email.com',
+  password: 'password',
+  lat: 49.258619,
+  lon: -123.241008
+}, {
+  success: function(response) {
+    alert('New object create with success! ObjectId: ' + response.id + `, ` + user.get('username'));
+  },
+  error: function(response, error) {
+    alert('Error: ' + error.message);
+  }
+});
+ 
+// var example = Parse.Object.extend('User');
+ //var q_example = new Parse.Query(example);
+ //q_example.equalTo("objectId", "rJQA3GXqgl");
+ //q_example.find({success: function(res){
+ //alert(res);
+ //}})
+
+ */
+</script>
+
+  <br>
+  
+<div class="container-fluid text-center">    
+  <h3>People near you who match with that interest:</h3><br>
+  <div class="row no-gutter">
+    <div class="col-sm-4 TD">
+      <div class="list-group" id="listings">
+	  
+<script>
+
+//document.write(output.join(""));
+var bool = false;
+var object;
+var username;
+var name1;
+var path;
+var distance;
+var profiles = [];
+var counter = 0;
+var l1 = [];
+var l2 = [];
+var use = [];
+
+
+var Users1 = Parse.Object.extend("User");
+var query = new Parse.Query(Users1);
+var ids = query.find().then((result) => {
+							
+							for (var i=0; i<result.length; i++){
+								object = result[i].id;
+								username = result[i].get('username');
+								name1 = result[i].get('name');
+								distance = result[i].get('distance');
+								path = result[i].get('path');
+								var lon = result[i].get('lon');
+								var lat = result[i].get('lat');
+								
+							var skills = Parse.Object.extend("Skills");
+							var query2 = new Parse.Query(skills);
+							
+							console.log(new Users1({id:object}));
+							
+							var ski = query2.equalTo("userName", new Users1({id:object})).find().then((result2) => {
+							
+							bool = false;
+							
+							for(w = 0; w < result2.length; w++){
+								
+								if(result2[w].get("skillType") == layout){
+
+									bool = true;
+									l1.push(result[counter].get('lat'));
+									l2.push(result[counter].get('lon'));
+									use.push(result[counter].get('path'));
+								
+								}else{}
+															
+							}
+							
+							if(bool == true){
+							
+							
+							profiles.push("<a class='list-group-item list-group-item-action flex-column align-items-start' data-toggle='modal' data-target='#myModal' id='" + result[counter].get('username') + "'><img style='height:85px;' class='img-circle' src=" +  result[counter].get('path') + "></img><div class='d-flex w-100 justify-content-between col-md-6'><h5 class='mb-1'>" + result[counter].get('name') + "</h5><small>" +  result[counter].get('distance') + " metres</small><p class='mb-1'>Mutual Skills: " + layout + "</p></div></a>");
+								}else{}
+								document.getElementById("listings").innerHTML = profiles;
+								counter++;
+							});
+							
+
+							}
+							
+							console.log(profiles);
+
+							
+							
+							})
+
+
+</script>
+
+</div>
+    </div>
+    <div class="col-sm-8" id="map">
+
+<div id="mapid"></div>
+		<script>
+
+	navigator.geolocation.getCurrentPosition(function(location) {
+  var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+
+  var mymap = L.map('mapid').setView(latlng, 13)
+ /* var marker = L.marker([49.258619, -123.241008]).addTo(mymap).on('click', function(e) {
+    document.getElementById("john").classList.add("active");
+});*/
+
+var Users = Parse.Object.extend("User");
+var query = new Parse.Query(Users);
+var marker = [];
+var strong = query.find().then((result) => {
+							console.log(result)
+							for (var i=0; i<use.length; i++){
+								var lon = result[i].get('lon');
+								var lat = result[i].get('lat');
+								var user = result[i].get('username');
+								
+							var marker1 = L.marker([l1[i], l2[i]]).addTo(mymap).bindPopup("<img style='height:50px;' style='border-radius:50%;' src='" + use[i] + "'></img>");
+																									
+							
+							marker.push(marker1);
+								
+							}
+							
+							  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+								attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://mapbox.com">Mapbox</a>',
+								maxZoom: 18,
+								id: 'mapbox.streets',
+								accessToken: 'pk.eyJ1IjoidG9yb3NzaWFuIiwiYSI6ImNqZGh5ZnNsbzBpZG4yeG82anB0aTgzc2EifQ.Af8px1ESk212qvnnmPrH6Q'
+								}).addTo(mymap);
+								
+								var marker2 = L.marker(latlng).addTo(mymap);
+
+							})
+/*
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoidG9yb3NzaWFuIiwiYSI6ImNqZGh5ZnNsbzBpZG4yeG82anB0aTgzc2EifQ.Af8px1ESk212qvnnmPrH6Q'
+  }).addTo(mymap);
+
+  var marker = L.marker(latlng).addTo(mymap);*/
+  
+ /* L.marker([49.258619, -123.241008]).on("click", onClick);
+  function onClick(e){
+	alert(this.getLatLng());
+  }*/
+  
+});
+		    </script>
+    </div>
+		
+    </div>
+        
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Antoine</h4>
+                    </div>
+                <div class="modal-body">
+                    <center>
+                    <img src="antoine.jpg" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                    <h3 class="media-heading">Antoine Torossian<small>Vancouver</small></h3>
+                    <span><strong>Skills: </strong></span>
+                        <span class="label label-warning">ARM</span>
+                        <span class="label label-info">C</span>
+                        <span class="label label-info">Python</span>
+                        <span class="label label-success">Circuit Maker</span>
+                    </center>
+                    <hr>
+                    <center>
+                    <p class="text-left"><strong>Occupation </strong><br>
+                       Electrical Engineering at UBC </p>
+                    <br>
+                    </center>
+                    <center>
+                            <p class="text-left"><strong>Interests </strong><br>
+                               Cooking, Web Development, iOS Development</p>
+                            <br>
+                            </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button input type = "submit" type="button" class="btn btn-primary btn-success" ><span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span> Pair</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+  </div>
+</div><br>
+
+
+
+<footer class="container-fluid text-center">
+  <p>PairUp 2018 ©</p>
+</footer>
+
+</body>
+</html>

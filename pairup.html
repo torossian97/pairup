@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Antoine Torossian</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <script>
+
+  //jQuery to collapse the navbar on scroll
+$(window).scroll(function() {
+    if ($(".navbar").offset().top > 50) {
+        $(".navbar-fixed-top").addClass("top-nav-collapse");
+    } else {
+        $(".navbar-fixed-top").removeClass("top-nav-collapse");
+    }
+});
+
+//jQuery for page scrolling feature - requires jQuery Easing plugin
+$(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+
+
+jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(e,f,a,h,g){return jQuery.easing[jQuery.easing.def](e,f,a,h,g)},easeInQuad:function(e,f,a,h,g){return h*(f/=g)*f+a},easeOutQuad:function(e,f,a,h,g){return -h*(f/=g)*(f-2)+a},easeInOutQuad:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f+a}return -h/2*((--f)*(f-2)-1)+a},easeInCubic:function(e,f,a,h,g){return h*(f/=g)*f*f+a},easeOutCubic:function(e,f,a,h,g){return h*((f=f/g-1)*f*f+1)+a},easeInOutCubic:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f+a}return h/2*((f-=2)*f*f+2)+a},easeInQuart:function(e,f,a,h,g){return h*(f/=g)*f*f*f+a},easeOutQuart:function(e,f,a,h,g){return -h*((f=f/g-1)*f*f*f-1)+a},easeInOutQuart:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f+a}return -h/2*((f-=2)*f*f*f-2)+a},easeInQuint:function(e,f,a,h,g){return h*(f/=g)*f*f*f*f+a},easeOutQuint:function(e,f,a,h,g){return h*((f=f/g-1)*f*f*f*f+1)+a},easeInOutQuint:function(e,f,a,h,g){if((f/=g/2)<1){return h/2*f*f*f*f*f+a}return h/2*((f-=2)*f*f*f*f+2)+a},easeInSine:function(e,f,a,h,g){return -h*Math.cos(f/g*(Math.PI/2))+h+a},easeOutSine:function(e,f,a,h,g){return h*Math.sin(f/g*(Math.PI/2))+a},easeInOutSine:function(e,f,a,h,g){return -h/2*(Math.cos(Math.PI*f/g)-1)+a},easeInExpo:function(e,f,a,h,g){return(f==0)?a:h*Math.pow(2,10*(f/g-1))+a},easeOutExpo:function(e,f,a,h,g){return(f==g)?a+h:h*(-Math.pow(2,-10*f/g)+1)+a},easeInOutExpo:function(e,f,a,h,g){if(f==0){return a}if(f==g){return a+h}if((f/=g/2)<1){return h/2*Math.pow(2,10*(f-1))+a}return h/2*(-Math.pow(2,-10*--f)+2)+a},easeInCirc:function(e,f,a,h,g){return -h*(Math.sqrt(1-(f/=g)*f)-1)+a},easeOutCirc:function(e,f,a,h,g){return h*Math.sqrt(1-(f=f/g-1)*f)+a},easeInOutCirc:function(e,f,a,h,g){if((f/=g/2)<1){return -h/2*(Math.sqrt(1-f*f)-1)+a}return h/2*(Math.sqrt(1-(f-=2)*f)+1)+a},easeInElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return -(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e},easeOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k)==1){return e+l}if(!j){j=k*0.3}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}return g*Math.pow(2,-10*h)*Math.sin((h*k-i)*(2*Math.PI)/j)+l+e},easeInOutElastic:function(f,h,e,l,k){var i=1.70158;var j=0;var g=l;if(h==0){return e}if((h/=k/2)==2){return e+l}if(!j){j=k*(0.3*1.5)}if(g<Math.abs(l)){g=l;var i=j/4}else{var i=j/(2*Math.PI)*Math.asin(l/g)}if(h<1){return -0.5*(g*Math.pow(2,10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j))+e}return g*Math.pow(2,-10*(h-=1))*Math.sin((h*k-i)*(2*Math.PI)/j)*0.5+l+e},easeInBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*(f/=h)*f*((g+1)*f-g)+a},easeOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}return i*((f=f/h-1)*f*((g+1)*f+g)+1)+a},easeInOutBack:function(e,f,a,i,h,g){if(g==undefined){g=1.70158}if((f/=h/2)<1){return i/2*(f*f*(((g*=(1.525))+1)*f-g))+a}return i/2*((f-=2)*f*(((g*=(1.525))+1)*f+g)+2)+a},easeInBounce:function(e,f,a,h,g){return h-jQuery.easing.easeOutBounce(e,g-f,0,h,g)+a},easeOutBounce:function(e,f,a,h,g){if((f/=g)<(1/2.75)){return h*(7.5625*f*f)+a}else{if(f<(2/2.75)){return h*(7.5625*(f-=(1.5/2.75))*f+0.75)+a}else{if(f<(2.5/2.75)){return h*(7.5625*(f-=(2.25/2.75))*f+0.9375)+a}else{return h*(7.5625*(f-=(2.625/2.75))*f+0.984375)+a}}}},easeInOutBounce:function(e,f,a,h,g){if(f<g/2){return jQuery.easing.easeInBounce(e,f*2,0,h,g)*0.5+a}return jQuery.easing.easeOutBounce(e,f*2-g,0,h,g)*0.5+h*0.5+a}});
+
+  </script>
+
+  <style>
+  img {
+    max-width: 100%;
+    height: auto;
+}
+
+#searchDiv {
+
+
+  position: absolute;
+
+     top: 420px;
+}
+
+#initDesc{
+  position: absolute;
+  text-align: center;
+font-weight: bold;
+
+     top: 220px;
+}
+
+.item {
+    width: 120px;
+    min-height: 120px;
+    max-height: auto;
+    float: left;
+    margin: 3px;
+    padding: 3px;
+}
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+	/*.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+	}*/
+
+	.navbar-default{
+  background:transparent;
+  background-image:"pairup_logo.png";
+  border-color:transparent;
+  box-shadow:none;
+}
+
+	.jumbotron {
+	background-image: url("background_top.png");
+	background-size: cover;
+  height:560px;
+	}
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none;
+    }
+  }
+  
+  h2 {
+  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+ 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+ 
+li:last-child {
+  border: none;
+}
+ 
+.r{
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 200px;
+ 
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+  padding:10px;
+  margin:10px;
+}
+ 
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+}
+  </style>
+</head>
+<body id="home">
+
+<script>
+
+function storeUp(){
+var search = document.getElementById("search").value;
+
+	localStorage.setItem("search",search);
+
+	window.location.href = "lookapp.html";
+	return false;
+
+}
+
+</script>
+
+<div class="jumbotron" style="">
+
+<nav class="navbar navbar-inverse  navbar-default" style="background:none;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href='pairup.html'><img src="pairup_logo.png" width="120" height="73" alt="Mountain View"></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a class=" page-scroll" href="#mission" style="color:white;font-size:20px;padding:20px;" >Mission</a></li>
+        <li><a class="page-scroll" style="color:white;font-size:20px;padding:20px;" href="#category">Category</a></li>
+        <li><a class="page-scroll" style="color:white;font-size:20px;padding:20px;" href="#about">About</a></li>
+      </ul>
+	  <button type="button" class="btn btn-warning btn-md pull-right" style="margin:15px;">Logout</button>
+    </div>
+  </div>
+</nav>
+
+
+  <p id="initDesc" style="color:white;font-size:32px;margin:10px;"class="lead">Get paired with members of your community who share your interests and broaden your perspective with PairUp.</p>
+
+  <div class="col-sm-12 BOX text-center" id = "searchDiv">
+      <input type="text" placeholder="Search.." name="search" id="search" >
+      <button type="submit" onclick="storeUp()" id="destroy"><i class="fa fa-search"></i></button>
+  </div>
+</div>
+
+
+<section id="jobs">
+
+<div class="container-fluid text-center" id="mission">
+  <h3>Try find a neighbors help</h3><br>
+  <div class="row no-gutter">
+    
+	<div class="col-sm-2">
+    </div>
+	<div class="col-sm-3">
+       <a class='list-group-item list-group-item-action flex-column align-items-start' id='new'><img style='height:60px;' src='1_1.png'></img><div class='d-flex w-100 justify-content-between col-md-6'><h5 class='mb-1'>Find people to connect with near you.</h5></div></a>
+    </div>
+	
+	<div class="col-sm-2">
+    </div> <div class="col-sm-3">
+       <a class='list-group-item list-group-item-action flex-column align-items-start' id='new'><img style='height:60px;' src='1_2.png'></img><div class='d-flex w-100 justify-content-between col-md-6'><h5 class='mb-1'>Find people to connect with near you.</h5></div></a>
+    </div>
+	<div class="col-sm-2">
+    </div>
+   
+  </div>
+</div><br>
+
+<div class="container-fluid text-center" style="background-color:#331a00;color:white;" id="category">
+  <h3>Find by Category</h3><br>
+  <div class="row no-gutter">
+    
+	<div class="col-sm-2">
+    </div>
+	<div class="col-sm-2">
+       <img src="2_1_food.png" class="img-responsive" style="width:100%">
+    </div>
+    <div class="col-sm-2" style="height:150px;">
+        <img src="2_2_transfar.png" class="img-responsive" style="width:100%;">
+    </div>
+	<div class="col-sm-2" style="height:150px;">
+        <img src="2_3_education.png" class="img-responsive" style="width:100%;">
+    </div>
+	<div class="col-sm-2" style="height:150px;">
+        <img src="2_4_tech.png" class="img-responsive" style="width:100%;">
+    </div>
+  </div>
+  <br>
+    <div class="row no-gutter">
+    
+	<div class="col-sm-2">
+    </div>
+	<div class="col-sm-2">
+       <img src="2_5_house.png" class="img-responsive" style="width:100%"> 
+    </div>
+    <div class="col-sm-2" style="height:150px;">
+        <a href="posting.html"><img src="2_6_community.png" class="img-responsive" style="width:100%;"></a>
+    </div>
+	<div class="col-sm-2" style="height:150px;">
+        <img src="2_7_pets.png" class="img-responsive" style="width:100%;">
+    </div>
+	<div class="col-sm-2" style="height:150px;">
+        <img src="2_8_clothes.png" class="img-responsive" style="width:100%;">
+    </div>
+  </div><br>
+</div>
+<br><br>
+    <div class="row no-gutter" id="about">
+    
+	<div class="col-sm-4">
+	<h2 style="margin:10px;">About Us</h2>
+      <ul class="list-group">
+  <li class="r">Antoine Torossian</li>
+  <li class="r">Adriana Htoo</li>
+  <li class="r">Felipe Ballesteros</li>
+  <li class="r">Christel Nicolas</li>
+  <li class="r">Maimai</li>
+</ul>
+</h2>
+    </div>
+    <div class="col-sm-8" style="height:500px;">
+        <img src="about.png" class="img-responsive" style="width:100%;">
+    </div>
+  </div><br>
+
+</section>
+
+
+<footer class="container-fluid text-center">
+  <p>PairUp 2018 ©</p>
+</footer>
+
+</body>
+</html>
